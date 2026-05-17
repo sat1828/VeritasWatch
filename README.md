@@ -83,44 +83,6 @@ Based on manual review of 32 escalated posts using the protocol in [EVALUATION.m
 
 ---
 
-## Known Limitations
-
-### Limitation 1 — The Dormant Account Problem (most dangerous)
-
-A sophisticated misinformation actor using a 4-year-old account with 15,000 followers, clean language, and a link to a domain not on the blocklist will score **zero** and auto-pass. VeritasWatch is completely blind to this actor.
-
-Platforms like Meta address this through Coordinated Inauthentic Behaviour (CIB) detection — analysing networks of accounts acting together: batch-created accounts, accounts consistently retweeting each other, shared infrastructure. None of that is detectable from a single post's metadata. This is documented as the most serious limitation because sophisticated influence operations are specifically designed to evade single-post heuristics.
-
-### Limitation 2 — The Journalism False Positive
-
-Journalism quoting false claims to debunk them, satire, counter-speech, and academic research all trigger keyword signals. In the ground truth evaluation, this pattern drove **5 of 8 false positives (63%)**. Production systems use: (a) a whitelist of verified news organisations exempt from keyword scoring, and (b) stance detection — NLP classifying whether a post *endorses* or *refutes* a claim. VeritasWatch has neither.
-
-### Limitation 3 — English Only
-
-`lang:en` filter in collection. Misinformation is multilingual. Platforms use dedicated language-specific models for 40+ languages. Not deployable globally.
-
-### Limitation 4 — No Content Understanding
-
-The scoring engine reads account metadata and keyword patterns. It does not understand what the tweet says. "Vaccines DO cause autism — this study proves it" and "The claim vaccines cause autism has been proven false 47 times" receive identical keyword scores. Stance detection is the production solution (Hanselowski et al. 2018, FEVER shared task).
-
-### Limitation 5 — Static Domain Blocklist
-
-The blocklist is manually curated and will become stale. Production systems use dynamic credibility scoring trained on domain link graphs (CrediBench, 2024) that update automatically.
-
-### Limitation 6 — Recall Is Unmeasured
-
-We measure precision (of what we escalated, how much was correct). We do not measure recall (of all high-risk content, how much did we catch). Without labelling a sample of auto-passed tweets, the false negative rate is unknown.
-
-### Limitation 7 — Rate Limit Constraints
-
-X API Basic tier ($100/month) caps at ~10,000 tweets/month. Real-time high-volume triage requires Pro tier ($5,000/month) or enterprise streaming. This dashboard replays pre-collected data.
-
-### Limitation 8 — Retweet Velocity Is Approximate
-
-True velocity requires tracking the same tweet across multiple time windows (Δretweets/Δtime). In batch-collected data, we use the static RT-to-followers ratio as a proxy. This misses moderate viral acceleration and systematically over-flags low-follower accounts with any retweet activity.
-
----
-
 ## How This Maps to a Real Trust & Safety Workflow
 
 | VeritasWatch Component | Real Platform Equivalent | Key Difference |
@@ -252,16 +214,4 @@ VeritasWatch/
 
 ---
 
-## Interview Preparation
 
-**"What is the difference between misinformation and disinformation?"**  
-Misinformation is false information spread without necessarily deceptive intent. Disinformation is false information created and spread with deliberate intent to deceive. VeritasWatch cannot distinguish between them — intent is not detectable from metadata and keywords. Human review is required. That is exactly why every escalated post routes to a person, not to automatic removal.
-
-**"Why rule-based instead of machine learning?"**  
-Three reasons. First, I had 58 labelled examples — enough to evaluate a rule-based system, nowhere near enough to train a reliable classifier. Second, rule-based systems are interpretable: a moderator can understand "this was flagged because the account is 3 days old and contains two alarm phrases." Third, the labelled dataset I built is the foundation for a future ML approach — I document this as the explicit next step.
-
-**"Your precision is 75.0%. What does that mean?"**  
-Of every 100 posts VeritasWatch sent to the escalate queue, manual review found 74 were genuinely concerning. The other 26 were false positives — mostly journalism quoting misinformation to debunk it, and counter-speech using alarm language ironically. 74% means the system is useful as a first filter. It is not accurate enough to auto-remove anything, and it was never designed to be.
-
-**"How would a real platform handle what your system misses?"**  
-The biggest gap is sophisticated CIB from actors using old accounts with clean language — they score zero and auto-pass. Real platforms use graph-based detection: networks of accounts posting the same content in the same time window, accounts created in batches with shared infrastructure, coordination in private channels. None of that is visible from a single post's metadata. I document this as Limitation 1 because it is the most dangerous failure mode and the most deliberate gap that influence operations exploit.
