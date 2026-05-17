@@ -1,0 +1,60 @@
+# low_credibility_domains.txt
+# VeritasWatch domain credibility blocklist
+#
+# SOURCE AND METHODOLOGY:
+#   This blocklist was compiled from:
+#   1. MediaBiasFactCheck.com "Conspiracy-Pseudoscience" category
+#      (https://mediabiasfactcheck.com/conspiracy/)
+#   2. NewsGuard red-rated domains as referenced in published academic research
+#      (e.g. Cinelli et al. 2020, Sharma et al. 2019)
+#   3. Domains documented in misinformation academic literature
+#
+#   CRITICAL LIMITATION: This is a STATIC, MANUALLY-CURATED list.
+#   New misinformation domains emerge continuously.
+#   This list will become stale over time without manual maintenance.
+#   Production systems use dynamic credibility scoring (e.g. CrediBench, 2024)
+#   trained on domain link graphs that update automatically.
+#   Our list does not. This is documented as Limitation 5 in README.md.
+#
+#   DISCLAIMER: Domain presence on this list does not constitute a legal
+#   or editorial finding of misinformation. It reflects categorisation by
+#   the above sources for research and demonstration purposes only.
+#
+# FORMAT: One domain per line. No www. prefix. Comments start with #.
+# Last updated: 2025
+
+naturalnews.com
+infowars.com
+globalresearch.ca
+beforeitsnews.com
+zerohedge.com
+activistpost.com
+rumble.com
+brighteon.com
+newstarget.com
+healthimpactnews.com
+humansarefree.com
+thedailybeast.com
+911truth.org
+veteranstoday.com
+rense.com
+whatreallyhappened.com
+conspiracytheories.org
+thetruthseeker.co.uk
+forbiddenknowledgetv.net
+prepperwebsite.com
+whydontyoutrythis.com
+disclose.tv
+worldtruth.tv
+yournewswire.com
+newspunch.com
+bigleaguepolitics.com
+100percentfedup.com
+thenationalpulse.com
+thegatewaypundit.com
+dcclothesline.com
+investmentwatchblog.com
+trendingpolitics.com
+uncoverdc.com
+revolver.news
+nationalfile.com
